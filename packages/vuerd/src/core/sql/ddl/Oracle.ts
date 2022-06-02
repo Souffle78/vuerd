@@ -29,6 +29,7 @@ export function createDDL({
   const aiNames: Name[] = [];
   const trgNames: Name[] = [];
   const indexNames: Name[] = [];
+  const uqNames: Name[] = [];
   const stringBuffer: string[] = [''];
   const bracket = getBracket(canvasState.bracketType);
   const tables = orderByNameASC(tableState.tables);
@@ -42,9 +43,15 @@ export function createDDL({
     if (unique(table.columns)) {
       const uqColumns = uniqueColumns(table.columns);
       uqColumns.forEach(column => {
+        let uqName = `UQ_${column.name}`;
+        uqName = autoName(uqNames, '', uqName);
+        uqNames.push({
+          id: uuid(),
+          name: uqName,
+        });
         stringBuffer.push(`ALTER TABLE ${bracket}${table.name}${bracket}`);
         stringBuffer.push(
-          `  ADD CONSTRAINT ${bracket}UQ_${column.name}${bracket} UNIQUE (${bracket}${column.name}${bracket});`
+          `  ADD CONSTRAINT ${bracket}${uqName}${bracket} UNIQUE (${bracket}${column.name}${bracket});`
         );
         stringBuffer.push('');
       });
