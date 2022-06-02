@@ -143,6 +143,47 @@ export function formatTable({ table, buffer, bracket }: FormatTableOptions) {
   buffer.push(`);`);
 }
 
+export function formatIndex({
+  table,
+  index,
+  buffer,
+  indexNames,
+  bracket,
+}: FormatIndexOptions) {
+  const columnNames = index.columns
+    .map(indexColumn => {
+      const column = getData(table.columns, indexColumn.id);
+      if (column) {
+        return {
+          name: `${bracket}${column.name}${bracket} ${indexColumn.orderType}`,
+        };
+      }
+      return null;
+    })
+    .filter(columnName => columnName !== null) as { name: string }[];
+
+  if (columnNames.length !== 0) {
+    let indexName = index.name;
+    if (index.name.trim() === '') {
+      indexName = `IDX_${table.name}`;
+      indexName = autoName(indexNames, '', indexName);
+      indexNames.push({
+        id: uuid(),
+        name: indexName,
+      });
+    }
+
+    if (index.unique) {
+      buffer.push(`CREATE UNIQUE INDEX ${bracket}${indexName}${bracket}`);
+    } else {
+      buffer.push(`CREATE INDEX ${bracket}${indexName}${bracket}`);
+    }
+    buffer.push(
+      `  ON ${bracket}${table.name}${bracket} (${formatNames(columnNames)});`
+    );
+  }
+}
+
 function formatColumn({
   column,
   isComma,
@@ -231,48 +272,15 @@ function formatRelation({
       `    REFERENCES ${bracket}${startTable.name}${bracket} (${formatNames(
         columns.start,
         bracket
-      )});`
-    );
-  }
-}
-
-export function formatIndex({
-  table,
-  index,
-  buffer,
-  indexNames,
-  bracket,
-}: FormatIndexOptions) {
-  const columnNames = index.columns
-    .map(indexColumn => {
-      const column = getData(table.columns, indexColumn.id);
-      if (column) {
-        return {
-          name: `${bracket}${column.name}${bracket} ${indexColumn.orderType}`,
-        };
-      }
-      return null;
-    })
-    .filter(columnName => columnName !== null) as { name: string }[];
-
-  if (columnNames.length !== 0) {
-    let indexName = index.name;
-    if (index.name.trim() === '') {
-      indexName = `IDX_${table.name}`;
-      indexName = autoName(indexNames, '', indexName);
-      indexNames.push({
-        id: uuid(),
-        name: indexName,
-      });
-    }
-
-    if (index.unique) {
-      buffer.push(`CREATE UNIQUE INDEX ${bracket}${indexName}${bracket}`);
-    } else {
-      buffer.push(`CREATE INDEX ${bracket}${indexName}${bracket}`);
-    }
-    buffer.push(
-      `  ON ${bracket}${table.name}${bracket} (${formatNames(columnNames)});`
+      )})${
+        relationship?.option?.cascadeDelete === true
+          ? '\n    ON DELETE CASCADE'
+          : ''
+      }${
+        relationship?.option?.cascadeUpdate === true
+          ? '\n    ON UPDATE CASCADE'
+          : ''
+      };`
     );
   }
 }

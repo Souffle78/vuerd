@@ -1,5 +1,6 @@
 import { uuid } from '@/core/helper';
 import {
+  OptionRelationshipKey,
   Relationship,
   RelationshipType,
   StartRelationshipType,
@@ -30,6 +31,10 @@ export function addRelationship(
       columnIds: columnIds.map(() => uuid()),
     },
     constraintName,
+    option: {
+      cascadeDelete: false,
+      cascadeUpdate: false,
+    },
   });
 }
 
@@ -61,6 +66,17 @@ export const changeIdentification = (
   createCommand('relationship.changeIdentification', {
     relationshipId,
     identification,
+  });
+
+export const changeOptionRelationship = (
+  relationshipId: string,
+  optionRelationshipKey: OptionRelationshipKey,
+  value: boolean
+) =>
+  createCommand('relationship.changeOptionRelationship', {
+    relationshipId,
+    optionRelationshipKey,
+    value,
   });
 
 export const loadRelationship = (relationship: Relationship) =>

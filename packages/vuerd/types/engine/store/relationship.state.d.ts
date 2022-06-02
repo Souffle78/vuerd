@@ -11,6 +11,7 @@ export interface Relationship {
   end: RelationshipPoint;
   constraintName?: string; // ADD: version 2.1.0
   visible?: boolean;
+  option: OptionRelationship;
 }
 
 export interface RelationshipPoint {
@@ -38,3 +39,10 @@ export type RelationshipType =
 export type StartRelationshipType = 'Ring' | 'Dash';
 
 export type Direction = 'left' | 'right' | 'top' | 'bottom';
+
+export type OptionRelationship = {
+  cascadeDelete: boolean;
+  cascadeUpdate: boolean;
+};
+
+export type OptionRelationshipKey = keyof OptionRelationship;

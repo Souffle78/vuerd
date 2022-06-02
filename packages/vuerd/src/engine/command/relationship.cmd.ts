@@ -5,6 +5,7 @@ import { ExecuteCommand } from '@/internal-types/command';
 import {
   AddRelationship,
   ChangeIdentification,
+  ChangeOptionRelationship,
   ChangeRelationshipType,
   ChangeStartRelationshipType,
   HideRelationship,
@@ -82,6 +83,20 @@ export function executeChangeIdentification(
   relationship.identification = data.identification;
 }
 
+export function executeOptionRelationship(
+  { relationshipState: { relationships } }: State,
+  data: ChangeOptionRelationship
+) {
+  const relationship = getData(relationships, data.relationshipId);
+  if (!relationship) return;
+
+  if (!relationship.option) {
+    relationship.option = { cascadeDelete: false, cascadeUpdate: false };
+  }
+
+  relationship.option[data.optionRelationshipKey] = data.value;
+}
+
 export function executeLoadRelationship(
   { relationshipState: { relationships }, tableState: { tables } }: State,
   data: Relationship
@@ -133,6 +148,7 @@ export const executeRelationshipCommandMap: Record<
   'relationship.changeStartRelationshipType':
     executeChangeStartRelationshipType,
   'relationship.changeIdentification': executeChangeIdentification,
+  'relationship.changeOptionRelationship': executeOptionRelationship,
   'relationship.load': executeLoadRelationship,
   'relationship.hide': executeHideRelationship,
   'relationship.show': executeShowRelationship,

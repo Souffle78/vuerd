@@ -1,8 +1,8 @@
 {
   "name": "vuerd-vscode",
-  "version": "0.9.15",
-  "displayName": "ERD Editor",
-  "description": "ERD Editor vscode extension",
+  "version": "0.9.16",
+  "displayName": "ERD Editor - Souffle version",
+  "description": "ERD Editor - Souffle version vscode extension",
   "main": "./out/extension.js",
   "private": true,
   "icon": "img/vuerd.png",

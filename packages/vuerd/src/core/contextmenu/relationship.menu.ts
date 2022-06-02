@@ -1,4 +1,7 @@
-import { removeRelationship } from '@/engine/command/relationship.cmd.helper';
+import {
+  changeOptionRelationship,
+  removeRelationship,
+} from '@/engine/command/relationship.cmd.helper';
 import { Menu, MenuOptions } from '@@types/core/contextmenu';
 import { ERDEditorContext } from '@@types/core/ERDEditorContext';
 import { Relationship } from '@@types/engine/store/relationship.state';
@@ -24,6 +27,47 @@ export function createRelationshipMenus(
       },
       name: 'Relationship Type',
       children: createSingleRelationship(context, relationship),
+    },
+    {
+      name: 'Cascade',
+      children: [
+        {
+          icon: relationship?.option?.cascadeDelete
+            ? {
+                prefix: 'fas',
+                name: 'check',
+                size: 18,
+              }
+            : undefined,
+          name: 'On Delete',
+          execute: () =>
+            store.dispatch(
+              changeOptionRelationship(
+                relationship.id,
+                'cascadeDelete',
+                !relationship?.option?.cascadeDelete
+              )
+            ),
+        },
+        {
+          icon: relationship?.option?.cascadeUpdate
+            ? {
+                prefix: 'fas',
+                name: 'check',
+                size: 18,
+              }
+            : undefined,
+          name: 'On Update',
+          execute: () =>
+            store.dispatch(
+              changeOptionRelationship(
+                relationship.id,
+                'cascadeUpdate',
+                !relationship?.option?.cascadeUpdate
+              )
+            ),
+        },
+      ],
     },
     {
       name: 'Delete',

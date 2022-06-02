@@ -9,6 +9,7 @@ import {
 import { migrationRelationshipType } from '@/core/migration/relationshipType';
 import { AddRelationship } from '@@types/engine/command/relationship.cmd';
 import {
+  OptionRelationship,
   Relationship,
   RelationshipPoint,
   RelationshipType,
@@ -58,10 +59,14 @@ export class RelationshipModel implements Relationship {
   };
   constraintName = '';
   visible = true;
+  option: OptionRelationship = {
+    cascadeDelete: false,
+    cascadeUpdate: false,
+  };
 
   constructor({ addRelationship, loadRelationship }: RelationshipData) {
     if (addRelationship) {
-      const { id, relationshipType, start, end, constraintName } =
+      const { id, relationshipType, start, end, constraintName, option } =
         addRelationship;
 
       this.id = id;
@@ -71,6 +76,8 @@ export class RelationshipModel implements Relationship {
       this.end.tableId = end.tableId;
       this.end.columnIds = [...end.columnIds];
       this.constraintName = constraintName;
+      this.option.cascadeDelete = option.cascadeDelete;
+      this.option.cascadeUpdate = option.cascadeUpdate;
     } else if (loadRelationship && isLoadRelationship(loadRelationship)) {
       const {
         id,
@@ -81,6 +88,7 @@ export class RelationshipModel implements Relationship {
         end,
         constraintName,
         visible,
+        option,
       } = cloneDeep(loadRelationship);
 
       this.id = id;
@@ -92,6 +100,7 @@ export class RelationshipModel implements Relationship {
       if (startRelationshipType) {
         this.startRelationshipType = startRelationshipType;
       }
+      this.option = option;
       if (isBoolean(visible)) this.visible = visible;
     } else {
       throw new Error('not found relationship');

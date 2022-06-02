@@ -1,4 +1,6 @@
 import {
+  OptionRelationship,
+  OptionRelationshipKey,
   Relationship,
   RelationshipType,
   StartRelationshipType,
@@ -15,6 +17,7 @@ export interface AddRelationship {
   start: AddRelationshipPoint;
   end: AddRelationshipPoint;
   constraintName: string;
+  option: OptionRelationship;
 }
 
 export interface RemoveRelationship {
@@ -36,6 +39,12 @@ export interface ChangeIdentification {
   identification: boolean;
 }
 
+export interface ChangeOptionRelationship {
+  relationshipId: string;
+  optionRelationshipKey: OptionRelationshipKey;
+  value: boolean;
+}
+
 export interface HideRelationship {
   relationshipId: string;
 }
@@ -50,6 +59,7 @@ export interface RelationshipCommandMap {
   'relationship.changeRelationshipType': ChangeRelationshipType;
   'relationship.changeStartRelationshipType': ChangeStartRelationshipType;
   'relationship.changeIdentification': ChangeIdentification;
+  'relationship.changeOptionRelationship': ChangeOptionRelationship;
   'relationship.load': Relationship;
   'relationship.hide': HideRelationship;
   'relationship.show': ShowRelationship;
