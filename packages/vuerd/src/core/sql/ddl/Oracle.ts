@@ -38,6 +38,7 @@ export function createDDL({
 
   tables.forEach(table => {
     formatTable({ table, buffer: stringBuffer, bracket });
+    stringBuffer.push('/');
     stringBuffer.push('');
     // unique
     if (unique(table.columns)) {
@@ -53,6 +54,7 @@ export function createDDL({
         stringBuffer.push(
           `  ADD CONSTRAINT ${bracket}${uqName}${bracket} UNIQUE (${bracket}${column.name}${bracket});`
         );
+        stringBuffer.push('/');
         stringBuffer.push('');
       });
     }
@@ -69,6 +71,7 @@ export function createDDL({
         stringBuffer.push(`CREATE SEQUENCE ${aiName}`);
         stringBuffer.push(`START WITH 1`);
         stringBuffer.push(`INCREMENT BY 1;`);
+        stringBuffer.push('/');
         stringBuffer.push('');
 
         let trgName = `SEQ_TRG_${table.name}`;
@@ -85,6 +88,7 @@ export function createDDL({
         stringBuffer.push(`  INTO: NEW.${column.name}`);
         stringBuffer.push(`  FROM DUAL;`);
         stringBuffer.push(`END;`);
+        stringBuffer.push('/');
         stringBuffer.push('');
       }
     });
@@ -99,6 +103,7 @@ export function createDDL({
       bracket,
     });
     stringBuffer.push('');
+    stringBuffer.push('/');
   });
 
   indexes.forEach(index => {
@@ -106,6 +111,7 @@ export function createDDL({
     if (table) {
       formatIndex({ table, index, buffer: stringBuffer, indexNames, bracket });
       stringBuffer.push('');
+      stringBuffer.push('/');
     }
   });
 
@@ -215,6 +221,7 @@ function formatComment({ table, buffer, bracket }: FormatCommentOptions) {
       `COMMENT ON TABLE ${bracket}${table.name}${bracket} IS '${table.comment}';`
     );
     buffer.push('');
+    buffer.push('/');
   }
   table.columns.forEach(column => {
     if (column.comment.trim() !== '') {
@@ -222,6 +229,7 @@ function formatComment({ table, buffer, bracket }: FormatCommentOptions) {
         `COMMENT ON COLUMN ${bracket}${table.name}${bracket}.${bracket}${column.name}${bracket} IS '${column.comment}';`
       );
       buffer.push('');
+      buffer.push('/');
     }
   });
 }
