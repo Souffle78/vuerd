@@ -10,6 +10,8 @@ export const createTheme = (): Theme => ({
   focus: '#00a9ff',
   keyPK: '#B4B400',
   keyFK: '#dda8b1',
+  keyFKDel: '#fc3254',
+  keyFKUpd: '#a8ddab',
   keyPFK: '#60b9c4',
   font: '#a2a2a2',
   fontActive: 'white',

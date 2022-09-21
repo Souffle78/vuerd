@@ -121,6 +121,10 @@ const relationshipOneOnly = ({ path, line }: RelationshipPath) =>
       x2=${line.line.end.center2.x2} y2=${line.line.end.center2.y2}
       stroke-width="3"
     ></line>
+    <rect
+      x=${line.line.end.center2.x1} y=${line.line.end.center2.y1}
+      stroke-width="3"
+    ></rect>
   `;
 
 const relationshipOneN = ({ path, line }: RelationshipPath) =>
@@ -150,6 +154,7 @@ const relationshipOneN = ({ path, line }: RelationshipPath) =>
       x2=${line.line.end.right.x2} y2=${line.line.end.right.y2}
       stroke-width="3"
     ></line>
+    <!-- <rect width="40" height="40"></rect> -->
   `;
 
 const relationshipOne = ({ path, line }: RelationshipPath) =>
@@ -169,6 +174,7 @@ const relationshipOne = ({ path, line }: RelationshipPath) =>
       x2=${line.line.end.center2.x2} y2=${line.line.end.center2.y2}
       stroke-width="3"
     ></line>
+    <!-- <rect width="40" height="40"></rect> -->
   `;
 
 const relationshipN = ({ path, line }: RelationshipPath) =>

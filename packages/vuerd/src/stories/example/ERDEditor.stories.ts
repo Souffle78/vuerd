@@ -12,6 +12,8 @@ export default {
     focus: { control: 'color' },
     keyPK: { control: 'color' },
     keyFK: { control: 'color' },
+    keyFKDel: { control: 'color' },
+    keyFKUpd: { control: 'color' },
     keyPFK: { control: 'color' },
     font: { control: 'color' },
     fontActive: { control: 'color' },

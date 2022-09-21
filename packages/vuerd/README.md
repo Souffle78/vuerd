@@ -129,6 +129,8 @@ interface Theme {
   --vuerd-theme-focus: #00a9ff;
   --vuerd-theme-key-pk: #b4b400;
   --vuerd-theme-key-fk: #dda8b1;
+  --vuerd-theme-key-fk-del: #fc3254;
+  --vuerd-theme-key-fk-upd: #a8ddab;
   --vuerd-theme-key-pfk: #60b9c4;
   --vuerd-theme-font: #a2a2a2;
   --vuerd-theme-font-active: white;
@@ -157,6 +159,8 @@ editor.setTheme({
   focus: '#00a9ff',
   keyPK: '#B4B400',
   keyFK: '#dda8b1',
+  keyFKDel: '#fc3254',
+  keyFKUpd: '#a8ddab',
   keyPFK: '#60b9c4',
   font: '#a2a2a2',
   fontActive: 'white',

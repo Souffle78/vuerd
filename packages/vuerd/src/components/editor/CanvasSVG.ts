@@ -146,6 +146,8 @@ const CanvasSVG: FunctionalComponent<CanvasSVGProps, CanvasSVGElement> = (
                 relationship.identification &&
                 state.activeId !== relationship.id,
               active: state.activeId === relationship.id,
+              delete: relationship?.option?.cascadeDelete,
+              update: relationship?.option?.cascadeUpdate,
             })}
               data-id=${relationship.id}
               @mouseover=${() => onMouseover(relationship)}

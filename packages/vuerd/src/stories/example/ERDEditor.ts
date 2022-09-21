@@ -13,6 +13,8 @@ export interface ERDEditorProps {
   focus?: string;
   keyPK?: string;
   keyFK?: string;
+  keyFKDel?: string;
+  keyFKUpd?: string;
   keyPFK?: string;
   font?: string;
   fontActive?: string;

@@ -5,6 +5,8 @@ export interface Theme {
   focus: string;
   keyPK: string;
   keyFK: string;
+  keyFKDel: string;
+  keyFKUpd: string;
   keyPFK: string;
   font: string;
   fontActive: string;

@@ -19,4 +19,12 @@ export const CanvasSVGStyle = css`
   .vuerd-relationship.active {
     stroke: var(--vuerd-color-edit);
   }
+
+  .vuerd-relationship.identification.delete {
+    stroke: var(--vuerd-color-key-fk-del);
+  }
+
+  .vuerd-relationship.identification.update {
+    stroke: var(--vuerd-color-key-fk-upd);
+  }
 `;

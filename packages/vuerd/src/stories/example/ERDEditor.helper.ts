@@ -25,6 +25,8 @@ const themeKeys = [
   'focus',
   'keyPK',
   'keyFK',
+  'keyFKDel',
+  'keyFKUpd',
   'keyPFK',
   'font',
   'fontActive',
